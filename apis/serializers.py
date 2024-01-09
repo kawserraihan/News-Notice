@@ -1,0 +1,46 @@
+from info.models import *
+from rest_framework import serializers
+from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['name']
+
+#---------------------------------------------------------------------------------------------
+#------------------------------------------News Serializers ----------------------------------
+#---------------------------------------------------------------------------------------------
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    news_title = serializers.CharField(source='title')
+    news_description = serializers.CharField(source='description')
+    news_image = serializers.SerializerMethodField()
+    #news_tags = serializers.ListField(source='tags.values_list("name", flat=True)')
+    
+
+    class Meta:
+        model = News
+        fields = ['news_title', 'news_description', 'news_image',]
+    
+    def get_news_image(self, obj):
+        request = self.context.get('request', None)
+        
+        # Check if the image field is not None and not empty
+        if obj.image:
+            # If an image is present, return the absolute URL with media prefix
+            return f"http://127.0.0.1:8000{obj.image.url}"
+        else:
+            # If no image is present, return None
+            return None
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['news_tags'] = [tag['name'] for tag in TagSerializer(instance.tags.all(), many=True).data]
+        return representation
+
+    
+    

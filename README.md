@@ -1,1 +1,1 @@
-# News-Notice
+# CollegeERP

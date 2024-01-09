@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% block content %}
+    {% load static %}
+    
+
+    </style>
+</head>
+
+    <div class="row">
+        <div class="container">
+            <h3>Shuttle Bus Schedules</h3>
+            
+            <!-- Add day and bus_type dropdowns -->
+            <div class="mb-3">
+                <label for="dayDropdown" class="form-label">Day:</label>
+                <select class="form-select" id="dayDropdown">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="routeTypeDropdown" class="form-label">Bus Type:</label>
+                <select class="form-select" id="routeTypeDropdown">
+                    <option value="uproute">Up Route</option>
+                    <option value="downroute">Down Route</option>
+                </select>
+            </div>
+
+            <form id="scheduleForm">
+                {% csrf_token %}
+                <textarea class="form-control" id="scheduleInput" rows="16" placeholder="Copy paste or Write the schedules here and separate them with an enter..."></textarea>
+                <button type="button" class="btn btn-primary" onclick="submitText()">Submit</button>
+            </form>
+
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function submitText() {
+            const inputText = document.getElementById('scheduleInput').value;
+            const lines = inputText.split(/\n/);
+
+            if (lines.length > 0) {
+                // Extract the first words of all lines as time
+                const firstWords = lines.map(line => line.split(' ')[0]);
+
+                // Extract the last words of all lines as bus_no
+                const lastWords = lines.map(line => line.split(' ').slice(-1)[0]);
+
+                // Get selected values for day and bus type
+                const selectedDay = document.getElementById('dayDropdown').value;
+                const selectedRouteType = document.getElementById('routeTypeDropdown').value;
+
+                // Create a FormData object to include the CSRF token
+                const formData = new FormData();
+                formData.append('csrfmiddlewaretoken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+                formData.append('day', selectedDay);
+                formData.append('route_type', selectedRouteType);
+                formData.append('time', JSON.stringify(firstWords)); // Convert array to JSON string
+                formData.append('bus_no', JSON.stringify(lastWords)); // Convert array to JSON string
+
+                // Send an AJAX request to your Django view using POST
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/bus/shuttles/', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            console.log('Schedule saved successfully.');
+                        } else {
+                            console.error('Error saving schedule:', xhr.status);
+                        }
+                    }
+                };
+
+                // Send the FormData object
+                xhr.send(formData);
+            }
+        }
+    </script>
+
+      
+ 
+
+{% endblock %}
