@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from django.conf import settings
+from decouple import config, Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 #-------------------Environtment Setup---------------------------
@@ -33,7 +34,7 @@ SECRET_KEY = 'django-insecure-a_hperyi!b4y##l+ymm!6gr(3k^8b4(q#^)nkv8)q^3bz(5^fl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ("*")
 
 
 AUTH_USER_MODEL = 'info.CustomUser'
@@ -100,31 +101,31 @@ WSGI_APPLICATION = 'CollegeErp.wsgi.application'
 
 #Local Database
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'studentcompanion',
-        'USER' : 'root',
-        'PASSWORD' : '',
-        'HOST' : 'localhost',     
-        'PORT' : "3306",
-        
-        },
-    }
-
-#Supabase Database
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME' : 'postgres',
-#         'USER' : 'postgres',
-#         'PASSWORD' : 'supabase-l623wefewtrweruw',
-#         'HOST' : 'db.wreienfandufxrugiify.supabase.co',     
-#         'PORT' : "5432",
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME' : 'studentcompanion',
+#         'USER' : 'root',
+#         'PASSWORD' : '',
+#         'HOST' : 'localhost',     
+#         'PORT' : "3306",
         
 #         },
 #     }
+
+#Supabase Database
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME' : 'postgres',
+        'USER' : 'postgres',
+        'PASSWORD' : 'supabase-l623wefewtrweruw',
+        'HOST' : 'db.wreienfandufxrugiify.supabase.co',     
+        'PORT' : "5432",
+        
+        },
+    }
 
 
 

@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 User = get_user_model
 
+
 # Create your models here.
 
 class Department(models.Model):
@@ -32,7 +33,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(username, password, **extra_fields)
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    name = models.CharField(blank=True, max_length=255)
+    name = models.CharField(blank=True, max_length=25)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(blank=True, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null = True)

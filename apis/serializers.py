@@ -32,7 +32,7 @@ class NewsSerializer(serializers.ModelSerializer):
         # Check if the image field is not None and not empty
         if obj.image:
             # If an image is present, return the absolute URL with media prefix
-            return f"http://127.0.0.1:8000{obj.image.url}"
+            return f"https://pigeon-i7rj.onrender.com{obj.image.url}"
         else:
             # If no image is present, return None
             return None
