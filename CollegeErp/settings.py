@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 from django.conf import settings
 
+from decouple import config, Csv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 #-------------------Environtment Setup---------------------------
@@ -34,7 +36,7 @@ SECRET_KEY = 'django-insecure-a_hperyi!b4y##l+ymm!6gr(3k^8b4(q#^)nkv8)q^3bz(5^fl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="*", cast=Csv())
 
 
 AUTH_USER_MODEL = 'info.CustomUser'
