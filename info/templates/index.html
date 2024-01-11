@@ -62,7 +62,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#busschedule" aria-expanded="false" aria-controls="prerequisites" data-submenu="prerequisites">
               <i class="icon-move menu-icon"></i>
               <span class="menu-title">Bus Schedule</span>
@@ -74,8 +74,8 @@
                 <li class="nav-item"> <a class="nav-link" href="#"> Regular Bus </a></li>
               </ul>
             </div>
-          </li>
-
+          </li> {% endcomment %}
+{% comment %} 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#prerequisites" aria-expanded="false" aria-controls="prerequisites" data-submenu="prerequisites">
               <i class="icon-move menu-icon"></i>
@@ -88,7 +88,7 @@
                 <li class="nav-item"> <a class="nav-link" href="#"> Subjects </a></li>
               </ul>
             </div>
-          </li>
+          </li> {% endcomment %}
 
 
 
@@ -114,10 +114,10 @@
         <li class="nav-item {% if request.resolver_match.url_name == 'departments' %}active{% endif %}">
         <a class="nav-link" href="{% url 'departments' %}"> Department </a>
         </li>
-        
+{% comment %}         
         <li class="nav-item {% if request.resolver_match.url_name == 'days' %}active{% endif %}">
           <a class="nav-link" href="{% url 'days' %}"> Days </a>
-          </li>
+          </li> {% endcomment %}
 
           <li class="nav-item {% if request.resolver_match.url_name == 'tags' %}active{% endif %}">
             <a class="nav-link" href="{% url 'tags' %}"> Tags </a>
