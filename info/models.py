@@ -99,7 +99,17 @@ class News(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(upload_to='news_images/', null = True, blank = True)
-    tags = models.ManyToManyField(Tag, null = True, blank = True)
+    tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.title
+    
+class Notice(models.Model):
+    title = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 400)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.title

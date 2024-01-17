@@ -7,6 +7,8 @@ from django.urls import resolve
 urlpatterns = [ 
     
     path('news/', api_view.NewsAll.as_view()),
+
+    path('notices/', api_view.NoticesAll.as_view()),
     
     
 ]

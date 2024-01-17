@@ -42,6 +42,9 @@ urlpatterns = [
     path('news/edit/<int:news_id>/', views.EditNews, name='edit_news'),
     path('news/delete/<int:id>/', views.DeleteNews, name = 'delete_news'),
 
+    path('notices/', views.NoticeList, name = 'notices'),
+    path('notices/add', views.AddNotice, name='addnotice'),
+
     
 ]
 

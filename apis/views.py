@@ -32,3 +32,11 @@ class NewsAll(APIView):
         serializer = NewsSerializer(news, many=True)
         
         return JsonResponse(serializer.data, safe=False)
+    
+
+class NoticesAll(APIView):
+    def get(self,request):
+        notices = Notice.objects.all()
+        serializer = NoticeSerializer(notices, many=True)
+        
+        return JsonResponse(serializer.data, safe=False)

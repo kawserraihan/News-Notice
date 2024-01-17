@@ -579,3 +579,41 @@ def DeleteNews(request, id):
     else:
         print(f"Received a {request.method} request instead of a POST request.")
         return HttpResponseBadRequest("Invalid Request")
+    
+
+
+#---------------------------------------------------------------------------------------------
+#------------------------------------------ Notice List --------------------------------------
+#---------------------------------------------------------------------------------------------
+def NoticeList(request):
+    
+    # Your view logic here
+    noticelist = Notice.objects.all()
+    form = NoticeForm()
+
+    context = {
+        'notice': noticelist,
+        'form': form
+    }
+
+    return render(request, 'modules/list/notice.html', context)
+
+#---------------------------------------------------------------------------------------------
+#------------------------------------------ Add Notice --------------------------------------
+#---------------------------------------------------------------------------------------------
+@login_required
+def AddNotice(request):
+
+    form = NoticeForm()
+    tags = Tag.objects.all()
+    
+    if request.method == 'POST':
+        form = NoticeForm(request.POST)
+        
+        if form.is_valid():
+            form.save()  
+            
+            return redirect('notices')  
+    else:
+        form = NewsForm()
+    return render(request, 'modules/add/notice.html', {'form': form, 'tags': tags})

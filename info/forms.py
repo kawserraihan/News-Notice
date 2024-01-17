@@ -51,6 +51,11 @@ class NewsForm(forms.ModelForm):
         model = News
         fields = ['title', 'description', 'image', 'tags']
 
+class NoticeForm(forms.ModelForm):
+    class Meta:
+        model = Notice
+        fields = ['title','description', 'posted_by','tags']
+
 
 
         

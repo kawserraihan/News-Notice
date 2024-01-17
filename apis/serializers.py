@@ -43,4 +43,25 @@ class NewsSerializer(serializers.ModelSerializer):
         return representation
 
     
+
+#---------------------------------------------------------------------------------------------
+#------------------------------------------Notice Serializers ----------------------------------
+#---------------------------------------------------------------------------------------------
+
+
+class NoticeSerializer(serializers.ModelSerializer):
+    notice_title = serializers.CharField(source='title')
+    notice_description = serializers.CharField(source='description')
+    notice_author = serializers.CharField(source='posted_by')
+    #news_tags = serializers.ListField(source='tags.values_list("name", flat=True)')
     
+
+    class Meta:
+        model = News
+        fields = ['notice_title', 'notice_description', 'notice_author',]
+    
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['notice_tags'] = [tag['name'] for tag in TagSerializer(instance.tags.all(), many=True).data]
+        return representation
