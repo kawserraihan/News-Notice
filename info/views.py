@@ -611,6 +611,7 @@ def AddNotice(request):
         form = NoticeForm(request.POST)
         
         if form.is_valid():
+            form.instance.posted_by = request.user
             form.save()  
             
             return redirect('notices')  

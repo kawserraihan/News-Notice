@@ -2,6 +2,7 @@ from info.models import *
 from rest_framework import serializers
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
+from django.utils import timezone
 
 
 
@@ -52,13 +53,17 @@ class NewsSerializer(serializers.ModelSerializer):
 class NoticeSerializer(serializers.ModelSerializer):
     notice_title = serializers.CharField(source='title')
     notice_description = serializers.CharField(source='description')
-    notice_author = serializers.CharField(source='posted_by')
+    notice_author = serializers.CharField(source='posted_by.name', allow_null=True)
+    created_date = serializers.SerializerMethodField()
     #news_tags = serializers.ListField(source='tags.values_list("name", flat=True)')
     
 
     class Meta:
-        model = News
-        fields = ['notice_title', 'notice_description', 'notice_author',]
+        model = Notice
+        fields = ['notice_title', 'notice_description', 'notice_author','created_date']
+
+    def get_created_date(self, instance):
+        return instance.created_date.strftime('%Y-%m-%d')
     
         
     def to_representation(self, instance):
