@@ -25,7 +25,7 @@ class NewsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = News
-        fields = ['news_title', 'news_description', 'news_image',]
+        fields = ['id','news_title', 'news_description', 'news_image',]
     
     def get_news_image(self, obj):
         request = self.context.get('request', None)
@@ -60,7 +60,7 @@ class NoticeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Notice
-        fields = ['notice_title', 'notice_description', 'notice_author','created_date']
+        fields = ['id','notice_title', 'notice_description', 'notice_author','created_date']
 
     def get_created_date(self, instance):
         return instance.created_date.strftime('%Y-%m-%d')
