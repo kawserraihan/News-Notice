@@ -19,6 +19,7 @@ from django.contrib import messages
 from django.views import View
 import re
 from django.views.decorators.http import require_POST
+from django.contrib.auth import logout
 
 from django.contrib.auth import get_user_model
 
@@ -38,7 +39,17 @@ def access_denied(request):
 def index(request):
 
     if request.user.is_superuser or request.user.is_active:
-        return render(request, 'index.html')
+
+        news_count = News.objects.count()
+        notice_count = Notice.objects.count()
+        users_count = CustomUser.objects.count()
+
+        context = {'news_count': news_count,
+                   'notice_count': notice_count,
+                   'users_count': users_count
+                   }
+
+        return render(request, 'index.html', context)
 
     else:
         message = "You do not have access"
@@ -71,6 +82,31 @@ def index(request):
 #             return access_denied
         
 #     return access_denied
+
+
+
+#---------------------------------------------------------------------------------------------
+#--------------------------------------Sign in  USER handling------------------------------------  
+#--------------------------------------------------------------------------------------------- 
+
+def signin(request):
+    department = Department.objects.all()
+    if request.method == 'POST':
+        form = CustomUserLoginForm(request, data=request.POST)
+        if form.is_valid():
+            # Authentication is already handled by the form
+            messages.success(request, "Sign in successful!")
+            return render('authentication/login.html')  # Redirect to your desired page after sign-in
+        else:
+            messages.error(request, "Invalid login credentials.")
+    else:
+        form = CustomUserLoginForm()
+
+    return render(request, 'authentication/register.html', {'form': form, 'departments': department})
+
+
+
+
 
 
 

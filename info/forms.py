@@ -3,9 +3,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from .models import *
+from django.contrib.auth.forms import AuthenticationForm
 
-
-
+class CustomUserLoginForm(AuthenticationForm):
+    class Meta:
+        fields = ['username','email','password','department']
+        
 class DepartmentForm(forms.ModelForm):
     class Meta:
         model = Department

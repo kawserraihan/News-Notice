@@ -10,6 +10,9 @@ from .views import *
 urlpatterns = [
     path('',views.index, name='index'),
     path('access-denied/', views.access_denied, name='access_denied'),
+    path('signin/', views.signin, name='signin'),
+    
+    
     
     path('initialize_days_of_week/', views.initialize_days_of_week, name='initialize_days_of_week'),
     path('get_departments/', views.get_departments, name='get_departments'),

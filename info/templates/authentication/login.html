@@ -49,13 +49,7 @@
                 <div class="login">
                     <form class="login100-form validate-form" method="post">
                         {% csrf_token %}
-                        {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+                        
                         <div class="login__field">
                             <span class="login__icon">
                                 <i class="fa fa-user"></i>

@@ -17,6 +17,71 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link type="text/css" href="{% static 'base/css/style.css' %}" rel="stylesheet" >
+    <style>
+      
+      .c-dashboardInfo .wrap {
+        background: #ffffff;
+        box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 7px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        padding: 40px 25px 20px;
+        height: 100%;
+      }
+      .c-dashboardInfo__title,
+      .c-dashboardInfo__subInfo {
+        color: #6c6c6c;
+        font-size: 1.18em;
+      }
+      .c-dashboardInfo span {
+        display: block;
+      }
+      .c-dashboardInfo__count {
+        font-weight: 600;
+        font-size: 2.5em;
+        line-height: 64px;
+        color: #323c43;
+      }
+      .c-dashboardInfo .wrap:after {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        content: "";
+      }
+      
+      .c-dashboardInfo:nth-child(1) .wrap:after {
+        background: linear-gradient(82.59deg, #00c48c 0%, #00a173 100%);
+      }
+      .c-dashboardInfo:nth-child(2) .wrap:after {
+        background: linear-gradient(81.67deg, #0084f4 0%, #1a4da2 100%);
+      }
+      .c-dashboardInfo:nth-child(3) .wrap:after {
+        background: linear-gradient(69.83deg, #0084f4 0%, #00c48c 100%);
+      }
+      .c-dashboardInfo:nth-child(4) .wrap:after {
+        background: linear-gradient(81.67deg, #ff647c 0%, #1f5dc5 100%);
+      }
+      .c-dashboardInfo__title svg {
+        color: #d7d7d7;
+        margin-left: 5px;
+      }
+      .MuiSvgIcon-root-19 {
+        fill: currentColor;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        font-size: 24px;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        user-select: none;
+        flex-shrink: 0;
+      }
+
+   
+  </style>
     
 </head>
 
@@ -25,8 +90,13 @@
     <!-- Navbar -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="#"><img src="{% static 'assets/images/logo.svg'%}" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="#"><img src="{% static 'assets/images/logo.svg'%}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="#">
+          <img src="{% static 'assets/images/pg.jpeg'%}" class="mr-2" alt="logo" style="width: 40px; height: auto;"/>
+      </a>
+      
+      <a class="navbar-brand brand-logo-mini" href="#">
+          <img src="{% static 'assets/images/pg.jpeg'%}" alt="logo" style="width: 80px; height: auto;"/>
+      </a>
       </div>
 
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -49,7 +119,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar" data-submenu="dashboard">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'index' %}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -156,13 +226,66 @@
         <div class="content-wrapper">
           {% block content %}
             <!-- Content Specific to Each Page -->
+          
+            <div class="container-fluid">
+              <div class="row">
+                  <div class="c-dashboardInfo col-lg-3 col-md-6">
+                    <div class="wrap">
+                      <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Posts<svg
+                          class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">{{news_count}}</span>
+                    </div>
+                  </div>
+                  <div class="c-dashboardInfo col-lg-3 col-md-6">
+                    <div class="wrap">
+                      <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total News<svg
+                          class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">{{news_count}}</span>
+                        
+                    </div>
+                  </div>
+                  <div class="c-dashboardInfo col-lg-3 col-md-6">
+                    <div class="wrap">
+                      <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Notices<svg
+                          class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">{{notice_count}}</span>
+                    </div>
+                  </div>
+                  <div class="c-dashboardInfo col-lg-3 col-md-6">
+                    <div class="wrap">
+                      <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Users<svg
+                          class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                          </path>
+                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">{{users_count}}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              
+            
           {% endblock %}
         </div>
 
         <!-- Footer -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © AnticByte Corporation Ltd. All rights reserved.</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Pigeon - A News & Notice Anouncement System</span>
           </div>
         </footer>
       </div>
